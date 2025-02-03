@@ -42,7 +42,10 @@
                 <td class="text-center">
                     <img src="{{ asset('assets/img/Menu/' . $user->foto) }}" alt="Menu Foto" style="width: 200px; height: 200px; object-fit: cover;">
                 </td>
-                <td class="text-center">{{ $user->nama_menu }}</td>
+                <td class="text-center">
+    {{ $user->nama_menu }} <br>
+    <small style="color: gray;">{{ $user->keterangan }}</small>
+</td>
                 <td class="text-center">{{ $user->harga_menu }}</td>
                 <td class="text-center">{{ $user->Stok }}</td>
                 <td class="text-center">
@@ -56,6 +59,7 @@
         @endif
     @endforeach
 </tbody>
+
 
                             </table>
                         </div>

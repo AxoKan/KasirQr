@@ -17,7 +17,7 @@
     <div class="row">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title"><i class="faj-button fa-solid fa-magnifying-glass"></i>Cari Permainan</h4>
+          <h4 class="card-title"><i class="faj-button fa-solid fa-magnifying-glass"></i></h4>
         </div>
         <div class="card-body"></div>
       </div>
@@ -35,21 +35,36 @@
         </div>
 
         <div class="card-body">
-          <form id="kasirForm" action="{{ url('aksi_kasir') }}" method="post">
+        <form id="kasirForm" action="{{ url('aksi_kasir') }}" method="post">
             @csrf
             <div class="row">
+              
               <div class="col-sm-6">
+                <div class="form-group">
+                <label class="control-label">Membership :</label>
+                  <input type="text" class="form-control" id="membership_input" name="membership">
+                  <button type="button" class="btn btn-secondary mt-2" id="cek_membership">Cek Membership</button>
+                </div>
+                
+               
+                
                 <div class="form-group">
                   <label class="control-label">Menu :</label>
                   <select class="choices form-select" id="menu" name="menu">
                     <option disabled selected>- Pilih -</option>
                     <?php foreach ($t as $p): ?>
-                      @if ($p->deleted_at === null)
-                      <option value="<?= $p->id_menu ?>" data-harga="<?= $p->harga_menu ?>" data-foto="<?= $p->foto ?>">
-                        <?= $p->nama_menu ?>
-                      </option>
-                      @endif
-                    <?php endforeach; ?>
+            @if ($p->deleted_at === null)
+                <option 
+               value="<?= $p->id_menu ?>" 
+              data-harga="<?= $p->harga_menu ?>" 
+              data-foto="<?= $p->foto ?>" 
+              data-keterangan="<?= htmlspecialchars($p->keterangan ?? '', ENT_QUOTES, 'UTF-8') ?>"
+              >
+              <?= $p->nama_menu ?>
+             </option>
+           @endif
+            <?php endforeach; ?>
+
                   </select>
                 </div>
                 <div class="form-group">
@@ -64,6 +79,11 @@
               </div>
 
               <div class="col-sm-6">
+              <div class="form-group">
+                  <label class="control-label">Voucher :</label>
+                  <input type="text" class="form-control" id="voucher_input" name="membership">
+                  <button type="button" class="btn btn-secondary mt-2" id="cek_voucher">Cek Voucher</button>
+                </div>
                 <div class="form-group">
                   <label class="control-label">Total :</label>
                   <input type="text" class="form-control" id="total_harga_input" name="total" readonly="readonly">
@@ -82,7 +102,8 @@
             </div>
             <input type="hidden" name="id" value="{{ $meja->id_meja }}">
             <button type="submit" class="btn btn-primary mt-2">Submit</button>
-          
+         
+
         
       
 
@@ -105,7 +126,7 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
   const menuSelect = document.getElementById('menu');
   const totalHargaInput = document.getElementById('total_harga_input');
   const bayarInput = document.getElementById('bayar_input');
@@ -147,12 +168,13 @@
 
     const idMenu = selectedMenu.value;
     const hargaMenu = selectedMenu.getAttribute('data-harga');
-    const namaMenu = selectedMenu.text;
+    const namaMenu = selectedMenu.textContent.trim();
     const fotoMenu = selectedMenu.getAttribute('data-foto');
+    const keterangan = selectedMenu.getAttribute('data-keterangan'); // FIXED
 
     const existingRows = Array.from(userTable.querySelectorAll('tr'));
-    if (existingRows.some(row => row.querySelector('td:nth-child(3)').textContent === namaMenu)) {
-      alert('Menu already exists in the table!');
+    if (existingRows.some(row => row.querySelector('td:nth-child(3)').textContent.includes(namaMenu))) {
+    
       return;
     }
 
@@ -163,7 +185,9 @@
         <img src="/assets/img/Menu/${fotoMenu}" alt="Menu Foto" style="width: 100px; height: 100px; object-fit: cover;">
       </td>
       <td class="text-center">
-        <input type="text" name="menu[]" value="${idMenu}" readonly>
+      <input type="text" name="nama[]" value="${namaMenu}" readonly><br>
+       <small style="color: gray;">${keterangan}</small>
+        <input type="hidden" name="menu[]" value="${idMenu}" readonly>
       </td>
       <td class="text-center">
         <input type="text" name="harga[]" value="${parseFloat(hargaMenu).toFixed(0)}" readonly>
@@ -195,7 +219,91 @@
   hitungTotalHargaDariTabel();
 });
 
-    </script>
+
+   document.addEventListener('DOMContentLoaded', function () {
+    const members = @json($member->pluck('NoMember'));
+
+    // Hapus used_membership dari localStorage saat halaman dimuat ulang
+    localStorage.removeItem('used_membership');
+
+    document.getElementById('cek_membership').addEventListener('click', function () {
+        const membershipInput = document.getElementById('membership_input').value.trim();
+        const totalHargaInput = document.getElementById('total_harga_input');
+        let totalHarga = parseFloat(totalHargaInput.value) || 0;
+
+        console.log("Members:", members);
+        console.log("Membership Input:", membershipInput);
+
+        // Cek apakah membership sudah pernah digunakan dalam sesi ini
+        if (localStorage.getItem('used_membership')) {
+            alert("Membership sudah digunakan dan tidak bisa diganti!");
+            return;
+        }
+
+        // Cek apakah membership valid
+        if (members.includes(membershipInput)) {
+            totalHarga *= 0.9; // Diskon 10%
+            totalHargaInput.value = totalHarga.toFixed(0);
+
+            // Tandai bahwa membership sudah digunakan
+            localStorage.setItem('used_membership', membershipInput);
+
+            alert("Membership berhasil diterapkan! Diskon 10% diberikan.");
+        } else {
+            alert("Membership tidak valid!");
+        }
+    });
+});
+
+
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+        const vouchers = @json($Voucher->pluck('Diskon', 'No_Voucher'));
+        const voucherValidity = @json($Voucher->pluck('valid', 'No_Voucher'));
+
+        document.getElementById('cek_voucher').addEventListener('click', function() {
+            const voucherInput = document.getElementById('voucher_input').value.trim();
+            const totalHargaInput = document.getElementById('total_harga_input');
+            let totalHarga = parseFloat(totalHargaInput.value) || 0;
+
+            console.log("Vouchers:", vouchers);
+            console.log("Voucher Input:", voucherInput);
+
+            // Cek apakah voucher sudah pernah digunakan
+            if (localStorage.getItem(`used_voucher_${voucherInput}`)) {
+                alert("Voucher sudah pernah digunakan!");
+                return;
+            }
+
+            // Cek apakah voucher valid berdasarkan kolom "valid"
+            if (voucherValidity[voucherInput] == 0) { // 0 berarti tidak valid
+                alert("Voucher tidak valid!");
+                return;
+            }
+
+            // Cek apakah voucher ada di daftar
+            if (vouchers[voucherInput]) {
+                const diskon = parseFloat(vouchers[voucherInput]);
+                console.log("Diskon:", diskon);
+
+                totalHarga -= (diskon / 100) * totalHarga;
+                totalHargaInput.value = totalHarga.toFixed(0);
+                
+                // Simpan bahwa voucher sudah digunakan
+                localStorage.setItem(`used_voucher_${voucherInput}`, true);
+
+                alert("Voucher berhasil diterapkan! Diskon " + diskon + "%");
+            } else {
+                alert("Voucher tidak valid!");
+            }
+        });
+    });
+
+
+
+</script>
+
   </div>
   </form>
   </div>

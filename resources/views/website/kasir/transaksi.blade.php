@@ -151,7 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
               <td class="text-center">
                 <img src="/assets/img/Menu/${item.foto}" alt="Menu Foto" style="width: 200px; height: 200px; object-fit: cover;">
               </td>
-              <td class="text-center">${item.nama_menu}</td>
+                <td class="text-center">
+    ${item.nama_menu} <br>
+    <small style="color: gray;">${item.keterangan }</small>
+</td>
               <td class="text-center">${item.harga_menu}</td>
             </tr>
           `;

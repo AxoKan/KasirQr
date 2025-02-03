@@ -72,25 +72,37 @@
 </li>
 <li class="menu-item {{ $uri == 'menu' ? 'active' : '' }}">
     <a href="{{ url('Menu') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-notepad"></i>
+        <i class="menu-icon tf-icons bx bx-food-menu"></i>
         <div data-i18n="Analytics">Menu</div>
     </a>
 </li>
 <li class="menu-item {{ $uri == 'menu' ? 'active' : '' }}">
     <a href="{{ url('transaksi') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-notepad"></i>
+        <i class="menu-icon tf-icons bx bx-cart"></i>
         <div data-i18n="Analytics">transaksi</div>
     </a>
 </li>
 <li class="menu-item {{ $uri == 'menu' ? 'active' : '' }}">
     <a href="{{ url('meja') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-notepad"></i>
+        <i class="menu-icon tf-icons bx bx-table"></i>
         <div data-i18n="Analytics">meja</div>
     </a>
 </li>
 <li class="menu-item {{ $uri == 'menu' ? 'active' : '' }}">
+    <a href="{{ url('member') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-user-circle"></i>
+        <div data-i18n="Analytics">membership</div>
+    </a>
+</li>
+<li class="menu-item {{ $uri == 'menu' ? 'active' : '' }}">
+    <a href="{{ url('Voucher') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-purchase-tag"></i>
+        <div data-i18n="Analytics">Voucher</div>
+    </a>
+</li>
+<li class="menu-item {{ $uri == 'menu' ? 'active' : '' }}">
     <a href="{{ url('scan') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-notepad"></i>
+        <i class="menu-icon tf-icons bx bx-scan"></i>
         <div data-i18n="Analytics">Scan</div>
     </a>
 </li>

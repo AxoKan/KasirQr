@@ -47,6 +47,7 @@ class Website extends Controller
            }
     $data['sa'] = $model->tampil('menu',
     'id_menu');
+ 
 
     echo view ('esensial/header', $data);
     echo view ('esensial/menu', $data);
@@ -109,42 +110,66 @@ public function TambahMenu()
                // Log the error if activity logging fails
                logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
            }
+           $data1['t'] = $model->tampil('menu',
+'id_menu');
+
            echo view ('esensial/header', $data);
            echo view ('esensial/menu', $data);
-           echo view('website/menu/TambahMenu',$data);
+           echo view('website/menu/TambahMenu',$data1);
            echo view ('esensial/footer');
     } else {
         return redirect()->to('http://localhost:8080/home/error_404');
     }
 }
-    public function aksi_add_Menu (Request $request)
-	{
-        $userLevel = session()->get('Level');
-        $allowedLevels = ['petugas','admin'];
+public function aksi_add_Menu(Request $request)
+{
+    $userLevel = session()->get('Level');
+    $allowedLevels = ['petugas', 'admin'];
 
     if (in_array($userLevel, $allowedLevels)) {
         $user_id = session()->get('id_user');
         $model = new M_lelang();
+        
+        // Retrieve input data
         $a = $request->input('Kategory');
         $b = $request->input('Menu');
         $e = $request->input('harga');
+        $d = $request->input('Keterangan', '-'); // Default to '-' if empty
         $c = $request->input('stok');
         $dashboardImage = $request->file('image');
         $uploadPath = public_path('assets/img/Menu/');
         
-        $data = array(
+        // Prepare data array
+        $data = [
             'Kategory' => $a,
-            'nama_menu' =>  $b,
+            'nama_menu' => $b,
+            'keterangan' => $d, // Already set to '-' if empty
             'harga_menu' => $e,
             'stok' => $c
-         );
-         if ($dashboardImage) {
-            $dashboardFileName = $dashboardImage->hashName();
+        ];
+        
+        // Handle image upload
+        if ($dashboardImage) {
+            $dashboardFileName = $dashboardImage->getClientOriginalName(); // Get the original file name
+            $filePath = $uploadPath . '/' . $dashboardFileName;
+
+            // Check if a file with the same name already exists
+            if (file_exists($filePath)) {
+                // File with the same name exists, skip upload or generate a unique name
+                $dashboardFileName = time() . '_' . $dashboardFileName; // Append timestamp to make it unique
+                $filePath = $uploadPath . '/' . $dashboardFileName; // Update file path
+            }
+
+            // Move the uploaded file to the target directory
             $dashboardImage->move($uploadPath, $dashboardFileName);
-            $data['foto'] = $dashboardFileName;
+            $data['foto'] = $dashboardFileName; // Save the file name in the data array
         }
-         $model->tambah('menu', $data);
-         try {
+        
+        // Insert data into the database
+        $model->tambah('menu', $data);
+        
+        // Log the activity
+        try {
             $timestamp = now(); // Use Laravel's now() function for current time
             DB::table('activity_log')->insert([
                 'user_id' => $user_id,
@@ -152,16 +177,18 @@ public function TambahMenu()
                 'description' => 'User added Menu Data.',
                 'timestamp' => $timestamp,
             ]);
-        }catch (\Exception $e) {
-                // Log the error if activity logging fails
-                logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
-            }
-            return redirect()->route('Menu')->with('success', 'Settings updated successfully!');
-print_r($isi);
+        } catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+
+        // Redirect with success message
+        return redirect()->route('Menu')->with('success', 'Menu added successfully!');
     } else {
+        // Redirect to error page if user level is not allowed
         return redirect()->to('http://localhost:8080/home/error_404');
     }
-	}
+}
     public function EditMenu($id)
 	{
         $userLevel = session()->get('Level');
@@ -516,14 +543,17 @@ public function kasir($id)
            // Log the error if activity logging fails
            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
        }
-$data['t'] = $model->tampil('menu',
+$data1['t'] = $model->tampil('menu',
 'id_menu');
-
+$data1['Voucher'] = $model->tampil('voucher',
+'id_Voucher');
+$data1['member'] = $model->tampil('membership',
+'id_member');
 
 $where = ['id_meja' => $id];
-$data['meja']=$model->getWhere('meja', $where);
+$data1['meja']=$model->getWhere('meja', $where);
     echo view('esensial/header',$data);
-    echo view('website/Kasir/kasir',$data);
+    echo view('website/Kasir/kasir',$data1);
     echo view('esensial/footer',$data);
 
 }
@@ -624,7 +654,491 @@ public function Nota ($id)
     return redirect()->to('http://localhost:8080/home/error_404');
 }
 }
+public function member ()
+{$userLevel = session()->get('Level');
+    $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+    $user_id = session()->get('id_user');
+    $model = new M_lelang();
+
+       // Fetch all logo data
+       $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Member Data.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+    $data1['sa'] = $model->tampil('membership',
+    'id_member');
+
+
+    echo view ('esensial/header', $data);
+    echo view ('esensial/menu', $data);
+    echo view('website/membership/member',$data1);
+    echo view ('esensial/footer');
+} else {
+    return redirect()->to('http://localhost:8080/home/error_404');
+}
+}
+public function deleteMember($id)
+{
+    $model = new M_lelang();
+    $user_id = session()->get('id_user');
+    $where = ['id_member' => $id];
+    $isi = array(
+            'deleted_at' => date('Y-m-d H:i:s')
+        
+     );
+     try {
+        $timestamp = now(); // Use Laravel's now() function for current time
+        DB::table('activity_log')->insert([
+            'user_id' => $user_id,
+            'activity' => 'Deleted',
+            'description' => 'User Deleted Member Data.',
+            'timestamp' => $timestamp,
+        ]);
+    }catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+    $model->edit('membership', $where ,$isi);
+
+    return redirect()->to('member');
+}
+public function TambahMember()
+	{
+        $userLevel = session()->get('Level');
+        $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+        $user_id = session()->get('id_user');
+        $model = new M_lelang();
+
+        $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Add Membership .',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
  
+
+           echo view ('esensial/header', $data);
+           echo view ('esensial/menu', $data);
+           echo view('website/membership/TambahMember');
+           echo view ('esensial/footer');
+    } else {
+        return redirect()->to('http://localhost:8080/home/error_404');
+    }
+}
+public function aksi_add_member(Request $request)
+{
+    $model = new M_lelang();
+    $user_id = session()->get('id_user');
+    $e = $request->input('Nomor');
+    $b = $request->input('nama');
+    $isi = array(
+            'NoMember' => $e,
+            'nama' => $b,
+            'diskon' => '10'
+     );
+     try {
+        $timestamp = now(); // Use Laravel's now() function for current time
+        DB::table('activity_log')->insert([
+            'user_id' => $user_id,
+            'activity' => 'Add',
+            'description' => 'User Added a Membership.',
+            'timestamp' => $timestamp,
+        ]);
+    }catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+    $model->tambah('membership',$isi );
+print_r($isi);
+
+    return redirect()->to('member');
+}
+public function EditMember($id)
+	{
+        $userLevel = session()->get('Level');
+        $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+        $user_id = session()->get('id_user');
+        $model = new M_lelang();
+
+        $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Update Membership.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+           $where = array('id_member'=> $id);
+           $data1['member']=$model->getWhere('membership', $where);
+
+           echo view ('esensial/header', $data);
+           echo view ('esensial/menu', $data);
+           echo view('website/membership/EditMember',$data1);
+           echo view ('esensial/footer');
+    } else {
+        return redirect()->to('http://localhost:8080/home/error_404');
+    }
+}
+public function aksi_EditMember(Request $request)
+{
+    $model = new M_lelang();
+    $user_id = session()->get('id_user');
+    $e = $request->input('Nomor');
+    $b = $request->input('nama');
+    $id = $request->input('id');
+        $where = array('id_member' => $id);
+    $isi = array(
+            'NoMember' => $e,
+            'nama' => $b,
+     );
+     try {
+        $timestamp = now(); // Use Laravel's now() function for current time
+        DB::table('activity_log')->insert([
+            'user_id' => $user_id,
+            'activity' => 'Update',
+            'description' => 'User Updated a Membership.',
+            'timestamp' => $timestamp,
+        ]);
+    }catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+    $model->edit('membership', $where ,$isi );
+print_r($isi);
+
+    return redirect()->to('member');
+}
+public function KartuMember ($id)
+{$userLevel = session()->get('Level');
+    $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+    $user_id = session()->get('id_user');
+    $model = new M_lelang();
+
+       // Fetch all logo data
+       $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Member.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+           $where = array('id_member'=> $id);
+           $data1['member']=$model->getWhere('membership', $where);
+    $data1['satu'] = $filteredLogo->first();
+    $logs = $model->getActivityLogs();
+    
+    echo view ('esensial/header', $data);
+    echo view('website/membership/Kartu',$data1);
+    echo view ('esensial/footer');
+} else {
+    return redirect()->to('http://localhost:8080/home/error_404');
+}
+}
+public function Voucher ()
+{$userLevel = session()->get('Level');
+    $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+    $user_id = session()->get('id_user');
+    $model = new M_lelang();
+
+       // Fetch all logo data
+       $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Voucher Data.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+    $data1['sa'] = $model->tampil('Voucher',
+    'id_Voucher');
+
+
+    echo view ('esensial/header', $data);
+    echo view ('esensial/menu', $data);
+    echo view('website/Voucher/Voucher',$data1);
+    echo view ('esensial/footer');
+} else {
+    return redirect()->to('http://localhost:8080/home/error_404');
+}
+}
+public function deleteVoucher($id)
+{
+    $model = new M_lelang();
+    $user_id = session()->get('id_user');
+    $where = ['id_Voucher' => $id];
+    $isi = array(
+            'deleted_at' => date('Y-m-d H:i:s')
+        
+     );
+     try {
+        $timestamp = now(); // Use Laravel's now() function for current time
+        DB::table('activity_log')->insert([
+            'user_id' => $user_id,
+            'activity' => 'Deleted',
+            'description' => 'User Deleted Voucher Data.',
+            'timestamp' => $timestamp,
+        ]);
+    }catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+    $model->edit('voucher', $where ,$isi);
+
+    return redirect()->to('Voucher');
+}
+public function TambahVoucher()
+	{
+        $userLevel = session()->get('Level');
+        $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+        $user_id = session()->get('id_user');
+        $model = new M_lelang();
+
+        $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Add Voucher .',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+ 
+
+           echo view ('esensial/header', $data);
+           echo view ('esensial/menu', $data);
+           echo view('website/Voucher/TambahVoucher');
+           echo view ('esensial/footer');
+    } else {
+        return redirect()->to('http://localhost:8080/home/error_404');
+    }
+}
+public function aksi_add_Voucher(Request $request)
+{
+    $model = new M_lelang();
+    $user_id = session()->get('id_user');
+    $e = $request->input('Nomor');
+    $b = $request->input('nama');
+    $c = $request->input('diskon');
+    $d = $request->input('Valid');
+    $isi = array(
+            'No_Voucher' => $e,
+            'Nama_Voucher' => $b,
+            'Diskon' => $c,
+            'Valid' => $d
+     );
+     try {
+        $timestamp = now(); // Use Laravel's now() function for current time
+        DB::table('activity_log')->insert([
+            'user_id' => $user_id,
+            'activity' => 'Add',
+            'description' => 'User Added a Voucher.',
+            'timestamp' => $timestamp,
+        ]);
+    }catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+    $model->tambah('Voucher',$isi );
+print_r($isi);
+
+    return redirect()->to('Voucher');
+}
+public function EditVoucher($id)
+	{
+        $userLevel = session()->get('Level');
+        $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+        $user_id = session()->get('id_user');
+        $model = new M_lelang();
+
+        $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Update Voucher.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+           $where = array('id_Voucher'=> $id);
+           $data1['Voucher']=$model->getWhere('voucher', $where);
+
+           echo view ('esensial/header', $data);
+           echo view ('esensial/menu', $data);
+           echo view('website/Voucher/EditVoucher',$data1);
+           echo view ('esensial/footer');
+    } else {
+        return redirect()->to('http://localhost:8080/home/error_404');
+    }
+}
+public function aksi_EditVoucher(Request $request)
+{
+    $model = new M_lelang();
+    $user_id = session()->get('id_user');
+    $e = $request->input('Nomor');
+    $b = $request->input('nama');
+    $d = $request->input('Valid');
+    $c = $request->input('diskon');
+    $id = $request->input('id');
+    $where = array('id_Voucher' => $id);
+    $isi = array(
+          'No_Voucher' => $e,
+            'Nama_Voucher' => $b,
+            'Diskon' => $c,
+            'Valid' => $d
+     );
+     try {
+        $timestamp = now(); // Use Laravel's now() function for current time
+        DB::table('activity_log')->insert([
+            'user_id' => $user_id,
+            'activity' => 'Add',
+            'description' => 'User Added a Voucher.',
+            'timestamp' => $timestamp,
+        ]);
+    }catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+    $model->edit('voucher', $where,$isi);
+print_r($isi);
+print_r($where);
+    return redirect()->to('Voucher');
+}
+public function VoucherPaper ($id)
+{$userLevel = session()->get('Level');
+    $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+    $user_id = session()->get('id_user');
+    $model = new M_lelang();
+
+       // Fetch all logo data
+       $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Member.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+           $where = array('id_Voucher'=> $id);
+           $data1['Voucher']=$model->getWhere('voucher', $where);
+    $data1['satu'] = $filteredLogo->first();
+    $logs = $model->getActivityLogs();
+    
+    echo view ('esensial/header', $data);
+    echo view('website/Voucher/VoucherPaper',$data1);
+    echo view ('esensial/footer');
+} else {
+    return redirect()->to('http://localhost:8080/home/error_404');
+}
+}
 }
 
     
