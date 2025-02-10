@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2025 at 06:41 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 7.4.27
+-- Generation Time: Feb 10, 2025 at 08:58 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `activity_log` (
   `activity` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `activity_log`
@@ -1174,7 +1174,306 @@ INSERT INTO `activity_log` (`id`, `user_id`, `activity`, `description`, `timesta
 (2050, 2, 'View', 'User viewed Nota.', '2025-02-04 00:38:24'),
 (2051, 2, 'View', 'User viewed user Data.', '2025-02-04 00:38:36'),
 (2052, 2, 'View', 'User viewed Website Setting.', '2025-02-04 00:38:40'),
-(2053, 2, 'View', 'User viewed Activity log.', '2025-02-04 00:38:47');
+(2053, 2, 'View', 'User viewed Activity log.', '2025-02-04 00:38:47'),
+(2054, 2, 'Login', 'User has logged in.', '2025-02-04 09:14:27'),
+(2055, 2, 'View', 'User viewed dashboard.', '2025-02-04 09:14:27'),
+(2056, 2, 'View', 'User viewed Member Data.', '2025-02-04 09:14:33'),
+(2057, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:14:34'),
+(2058, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:14:35'),
+(2059, 2, 'View', 'User viewed Member.', '2025-02-04 09:14:37'),
+(2060, 2, 'View', 'User viewed Nota.', '2025-02-04 09:14:40'),
+(2061, 2, 'View', 'User viewed Member.', '2025-02-04 09:14:42'),
+(2062, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:16:16'),
+(2063, 2, 'View', 'User viewed Nota.', '2025-02-04 09:16:28'),
+(2064, 2, 'Complete', 'User Completed a transaction.', '2025-02-04 09:17:15'),
+(2065, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:17:16'),
+(2066, 2, 'Complete', 'User Completed a transaction.', '2025-02-04 09:17:18'),
+(2067, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:17:18'),
+(2068, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:17:20'),
+(2069, 2, 'View', 'User viewed Add Menu Data.', '2025-02-04 09:17:27'),
+(2070, 2, 'add', 'User added Menu Data.', '2025-02-04 09:18:35'),
+(2071, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:18:35'),
+(2072, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:18:48'),
+(2073, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:19:07'),
+(2074, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 09:19:19'),
+(2075, 2, 'View', 'User viewed Member Data.', '2025-02-04 09:19:48'),
+(2076, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:19:53'),
+(2077, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 09:20:16'),
+(2078, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:20:22'),
+(2079, 2, 'Complete', 'User Completed a transaction.', '2025-02-04 09:20:37'),
+(2080, 2, 'View', 'User viewed Menu Data.', '2025-02-04 09:20:37'),
+(2081, 2, 'View', 'User viewed Nota.', '2025-02-04 09:20:41'),
+(2082, 2, 'View', 'User viewed Meja Data.', '2025-02-04 09:21:06'),
+(2083, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:21:11'),
+(2084, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:24:44'),
+(2085, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:25:27'),
+(2086, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:25:39'),
+(2087, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:29:01'),
+(2088, 2, 'Deleted', 'User Stop Voucher Data.', '2025-02-04 09:29:08'),
+(2089, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:29:08'),
+(2090, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:29:21'),
+(2091, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:29:33'),
+(2092, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:31:19'),
+(2093, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:31:26'),
+(2094, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:31:38'),
+(2095, 2, 'View', 'User viewed Update Voucher.', '2025-02-04 09:31:44'),
+(2096, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:40:39'),
+(2097, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:41:12'),
+(2098, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:42:04'),
+(2099, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:44:10'),
+(2100, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:47:53'),
+(2101, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:48:17'),
+(2102, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 09:48:29'),
+(2103, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 09:49:14'),
+(2104, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 09:52:58'),
+(2105, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 09:54:52'),
+(2106, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 09:56:28'),
+(2107, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 09:56:35'),
+(2108, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 09:59:52'),
+(2109, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:00:31'),
+(2110, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:00:36'),
+(2111, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:01:09'),
+(2112, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:01:14'),
+(2113, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:01:20'),
+(2114, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:01:25'),
+(2115, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:01:32'),
+(2116, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:01:40'),
+(2117, 2, 'View', 'User viewed Kasir Page.', '2025-02-04 10:05:04'),
+(2118, 2, 'Login', 'User has logged in.', '2025-02-04 12:39:01'),
+(2119, 2, 'View', 'User viewed dashboard.', '2025-02-04 12:39:02'),
+(2120, 2, 'View', 'User viewed Menu Data.', '2025-02-04 12:39:18'),
+(2121, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:39:24'),
+(2122, 2, 'View', 'User viewed Member.', '2025-02-04 12:41:21'),
+(2123, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:50:22'),
+(2124, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:51:28'),
+(2125, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:51:31'),
+(2126, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:51:36'),
+(2127, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:52:40'),
+(2128, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:53:09'),
+(2129, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:53:23'),
+(2130, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:53:50'),
+(2131, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:53:52'),
+(2132, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:53:57'),
+(2133, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:54:10'),
+(2134, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:54:13'),
+(2135, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:54:15'),
+(2136, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:54:26'),
+(2137, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:54:28'),
+(2138, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:54:40'),
+(2139, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:54:50'),
+(2140, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 12:54:53'),
+(2141, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:55:02'),
+(2142, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:55:58'),
+(2143, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:58:14'),
+(2144, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:58:36'),
+(2145, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:58:56'),
+(2146, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:59:05'),
+(2147, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:59:20'),
+(2148, 2, 'View', 'User viewed Member Data.', '2025-02-04 12:59:29'),
+(2149, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:01:09'),
+(2150, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:01:15'),
+(2151, 2, 'View', 'User viewed Add Membership .', '2025-02-04 13:04:23'),
+(2152, 2, 'View', 'User viewed Add Membership .', '2025-02-04 13:04:41'),
+(2153, 2, 'View', 'User viewed Add Membership .', '2025-02-04 13:04:52'),
+(2154, 2, 'View', 'User viewed Add Membership .', '2025-02-04 13:05:01'),
+(2155, 2, 'View', 'User viewed Add Membership .', '2025-02-04 13:05:08'),
+(2156, 2, 'View', 'User viewed Add Membership .', '2025-02-04 13:05:15'),
+(2157, 2, 'View', 'User viewed Add Membership .', '2025-02-04 13:05:43'),
+(2158, 2, 'View', 'User viewed Add Membership .', '2025-02-04 13:06:03'),
+(2159, 2, 'Add', 'User Added a Membership.', '2025-02-04 13:10:00'),
+(2160, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:10:00'),
+(2161, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:11:14'),
+(2162, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:11:25'),
+(2163, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:11:38'),
+(2164, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:11:40'),
+(2165, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 13:22:10'),
+(2166, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:22:12'),
+(2167, 2, 'View', 'User viewed Meja Data.', '2025-02-04 13:22:14'),
+(2168, 2, 'View', 'User viewed Menu Data.', '2025-02-04 13:22:16'),
+(2169, 2, 'View', 'User viewed Menu Data.', '2025-02-04 13:22:18'),
+(2170, 2, 'View', 'User viewed Voucher Data.', '2025-02-04 13:22:22'),
+(2171, 2, 'View', 'User viewed Member Data.', '2025-02-04 13:22:23'),
+(2172, 2, 'View', 'User viewed Menu Data.', '2025-02-04 13:22:30'),
+(2173, 2, 'View', 'User viewed Menu Data.', '2025-02-04 13:22:40'),
+(2174, 2, 'View', 'User viewed Add Menu Data.', '2025-02-04 13:22:44'),
+(2175, 2, 'View', 'User viewed Menu Data.', '2025-02-04 13:22:46'),
+(2176, 2, 'View', 'User viewed dashboard.', '2025-02-04 13:23:36'),
+(2177, 2, 'View', 'User viewed Menu Data.', '2025-02-04 13:23:38'),
+(2178, 2, 'Login', 'User has logged in.', '2025-02-06 09:13:50'),
+(2179, 2, 'View', 'User viewed dashboard.', '2025-02-06 09:13:50'),
+(2180, 2, 'View', 'User viewed Menu Data.', '2025-02-06 09:13:55'),
+(2181, 2, 'View', 'User viewed Voucher Data.', '2025-02-06 09:13:57'),
+(2182, 2, 'View', 'User viewed Menu Data.', '2025-02-06 09:14:02'),
+(2183, 2, 'View', 'User viewed Voucher Data.', '2025-02-06 09:14:04'),
+(2184, 2, 'View', 'User viewed dashboard.', '2025-02-06 09:14:28'),
+(2185, 2, 'View', 'User viewed Kasir Page.', '2025-02-06 09:14:30'),
+(2186, 2, 'View', 'User viewed Member Data.', '2025-02-06 09:14:38'),
+(2187, 2, 'View', 'User viewed Voucher Data.', '2025-02-06 09:15:03'),
+(2188, 2, 'View', 'User viewed Member Data.', '2025-02-06 09:15:08'),
+(2189, 2, 'View', 'User viewed Menu Data.', '2025-02-06 09:15:26'),
+(2190, 2, 'View', 'User viewed Nota.', '2025-02-06 09:16:53'),
+(2191, 2, 'View', 'User viewed Scan Page.', '2025-02-06 09:17:07'),
+(2192, 2, 'View', 'User viewed dashboard.', '2025-02-06 09:20:39'),
+(2193, 2, 'View', 'User viewed Member Data.', '2025-02-06 09:20:41'),
+(2194, 2, 'View', 'User viewed Meja Data.', '2025-02-06 09:20:42'),
+(2195, 2, 'View', 'User viewed Voucher Data.', '2025-02-06 09:20:59'),
+(2196, 2, 'View', 'User viewed Add Voucher .', '2025-02-06 09:21:07'),
+(2197, 2, 'Add', 'User Added a Voucher.', '2025-02-06 09:21:20'),
+(2198, 2, 'View', 'User viewed Voucher Data.', '2025-02-06 09:21:20'),
+(2199, 2, 'View', 'User viewed Member.', '2025-02-06 09:21:24'),
+(2200, 2, 'Login', 'User has logged in.', '2025-02-10 12:56:53'),
+(2201, 2, 'View', 'User viewed dashboard.', '2025-02-10 12:56:54'),
+(2202, 2, 'View', 'User viewed Menu Data.', '2025-02-10 12:57:01'),
+(2203, 2, 'View', 'User viewed Menu Data.', '2025-02-10 12:58:04'),
+(2204, 2, 'View', 'User viewed Menu Data.', '2025-02-10 12:58:21'),
+(2205, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:00:15'),
+(2206, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:00:18'),
+(2207, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:00:22'),
+(2208, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:01:37'),
+(2209, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:02:15'),
+(2210, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:02:27'),
+(2211, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:02:40'),
+(2212, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:04:14'),
+(2213, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:05:24'),
+(2214, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:06:40'),
+(2215, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:08:55'),
+(2216, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:10:14'),
+(2217, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:10:35'),
+(2218, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:10:43'),
+(2219, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:10:49'),
+(2220, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:10:54'),
+(2221, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:12:18'),
+(2222, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:12:34'),
+(2223, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:13:32'),
+(2224, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:14:17'),
+(2225, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:14:55'),
+(2226, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:17:44'),
+(2227, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:23:19'),
+(2228, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:26:19'),
+(2229, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:27:39'),
+(2230, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:28:04'),
+(2231, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:29:58'),
+(2232, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:31:24'),
+(2233, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:31:27'),
+(2234, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:31:33'),
+(2235, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:31:42'),
+(2236, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:34:48'),
+(2237, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:35:21'),
+(2238, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:36:16'),
+(2239, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:36:38'),
+(2240, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:36:48'),
+(2241, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:37:16'),
+(2242, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:37:19'),
+(2243, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:37:38'),
+(2244, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:37:42'),
+(2245, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:38:33'),
+(2246, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:38:43'),
+(2247, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:39:06'),
+(2248, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:40:33'),
+(2249, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:40:42'),
+(2250, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:44:10'),
+(2251, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:45:52'),
+(2252, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:46:15'),
+(2253, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:47:26'),
+(2254, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:47:38'),
+(2255, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:48:07'),
+(2256, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:48:25'),
+(2257, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:48:53'),
+(2258, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:49:50'),
+(2259, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:49:58'),
+(2260, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:50:10'),
+(2261, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:50:30'),
+(2262, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:50:45'),
+(2263, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:51:14'),
+(2264, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:51:22'),
+(2265, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:53:25'),
+(2266, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:54:36'),
+(2267, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:54:57'),
+(2268, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:55:23'),
+(2269, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:57:42'),
+(2270, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:57:59'),
+(2271, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:58:12'),
+(2272, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 13:58:31'),
+(2273, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:58:45'),
+(2274, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:59:15'),
+(2275, 2, 'View', 'User viewed Menu Data.', '2025-02-10 13:59:25'),
+(2276, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:00:37'),
+(2277, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:00:51'),
+(2278, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:03:24'),
+(2279, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:03:37'),
+(2280, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:04:00'),
+(2281, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:05:47'),
+(2282, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:08:17'),
+(2283, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:08:42'),
+(2284, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:09:13'),
+(2285, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:10:24'),
+(2286, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:10:34'),
+(2287, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:11:07'),
+(2288, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:11:15'),
+(2289, 2, 'View', 'User viewed Nota.', '2025-02-10 14:11:54'),
+(2290, 2, 'View', 'User viewed Nota.', '2025-02-10 14:12:22'),
+(2291, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:12:36'),
+(2292, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:13:43'),
+(2293, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:13:52'),
+(2294, 2, 'View', 'User viewed Meja Data.', '2025-02-10 14:14:02'),
+(2295, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:14:04'),
+(2296, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:14:09'),
+(2297, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:14:14'),
+(2298, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:14:17'),
+(2299, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:16:00'),
+(2300, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:19:27'),
+(2301, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:21:38'),
+(2302, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:21:42'),
+(2303, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:22:22'),
+(2304, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:23:27'),
+(2305, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:23:31'),
+(2306, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:23:45'),
+(2307, 2, 'Deleted', 'User Stop Voucher Data.', '2025-02-10 14:23:51'),
+(2308, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:23:51'),
+(2309, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:23:54'),
+(2310, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:24:14'),
+(2311, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:24:22'),
+(2312, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:25:20'),
+(2313, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:25:22'),
+(2314, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:25:24'),
+(2315, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:26:06'),
+(2316, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:26:08'),
+(2317, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:26:11'),
+(2318, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:26:13'),
+(2319, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:26:14'),
+(2320, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:26:25'),
+(2321, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:26:26'),
+(2322, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:30:19'),
+(2323, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:30:21'),
+(2324, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:30:30'),
+(2325, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:30:31'),
+(2326, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:30:58'),
+(2327, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:31:05'),
+(2328, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:33:35'),
+(2329, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:34:00'),
+(2330, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:34:11'),
+(2331, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:36:33'),
+(2332, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:36:45'),
+(2333, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:38:28'),
+(2334, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:38:55'),
+(2335, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:39:16'),
+(2336, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:41:04'),
+(2337, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:41:26'),
+(2338, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:41:40'),
+(2339, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:41:49'),
+(2340, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:44:23'),
+(2341, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:44:28'),
+(2342, 2, 'View', 'User viewed Kasir Page.', '2025-02-10 14:44:59'),
+(2343, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:45:21'),
+(2344, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:45:31'),
+(2345, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:45:40'),
+(2346, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:45:46'),
+(2347, 2, 'View', 'User viewed Menu Data.', '2025-02-10 14:45:49'),
+(2348, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:46:50'),
+(2349, 2, 'View', 'User viewed Member Data.', '2025-02-10 14:46:54'),
+(2350, 2, 'View', 'User viewed Voucher Data.', '2025-02-10 14:46:55'),
+(2351, 2, 'View', 'User viewed Scan Page.', '2025-02-10 14:46:57'),
+(2352, 2, 'View', 'User viewed dashboard.', '2025-02-10 14:47:02');
 
 -- --------------------------------------------------------
 
@@ -1190,36 +1489,41 @@ CREATE TABLE `detail_transaksi` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `detail_transaksi`
 --
 
 INSERT INTO `detail_transaksi` (`id_detail`, `transaksi_id`, `Menu_id`, `subtotal`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(86, 1, 1, 20000.00, '2025-01-23 12:56:02', NULL, NULL),
-(87, 1, 2, 5000.00, '2025-01-23 12:56:03', NULL, NULL),
-(88, 1, 3, 20000.00, '2025-01-23 12:56:04', NULL, NULL),
-(89, 1, 4, 5000.00, '2025-01-23 12:56:05', NULL, NULL),
-(90, 2, 1, 20000.00, '2025-01-23 12:56:45', NULL, NULL),
-(91, 2, 2, 5000.00, '2025-01-23 12:56:47', NULL, NULL),
-(92, 121, 3, 20000.00, '2025-01-24 20:53:19', NULL, '2025-01-24 20:53:59'),
-(93, 121, 2, 5000.00, '2025-01-24 20:53:19', NULL, '2025-01-24 20:53:59'),
-(94, 122, 2, 5000.00, '2025-01-24 20:56:39', NULL, NULL),
-(95, 122, 4, 5000.00, '2025-01-24 20:56:39', NULL, NULL),
-(96, 123, 3, 20000.00, '2025-01-24 20:57:15', NULL, NULL),
-(97, 123, 2, 5000.00, '2025-01-24 20:57:15', NULL, NULL),
-(98, 124, 1, 20000.00, '2025-01-24 21:13:51', NULL, NULL),
-(99, 124, 3, 20000.00, '2025-01-24 21:13:51', NULL, NULL),
-(100, 125, 1, 20000.00, '2025-02-02 15:45:58', NULL, NULL),
-(101, 169, 3, 20000.00, '2025-02-04 00:20:30', NULL, NULL),
-(102, 169, 2, 5000.00, '2025-02-04 00:20:30', NULL, NULL),
-(103, 170, 16, 20000.00, '2025-02-04 00:24:19', NULL, NULL),
-(104, 170, 17, 25000.00, '2025-02-04 00:24:19', NULL, NULL),
-(105, 171, 16, 20000.00, '2025-02-04 00:29:05', NULL, '2025-02-04 00:38:11'),
-(106, 171, 17, 25000.00, '2025-02-04 00:29:05', NULL, '2025-02-04 00:38:11'),
-(107, 172, 17, 25000.00, '2025-02-04 00:37:45', NULL, NULL),
-(108, 172, 16, 20000.00, '2025-02-04 00:37:45', NULL, NULL);
+(86, 1, 1, '20000.00', '2025-01-23 12:56:02', NULL, NULL),
+(87, 1, 2, '5000.00', '2025-01-23 12:56:03', NULL, NULL),
+(88, 1, 3, '20000.00', '2025-01-23 12:56:04', NULL, NULL),
+(89, 1, 4, '5000.00', '2025-01-23 12:56:05', NULL, NULL),
+(90, 2, 1, '20000.00', '2025-01-23 12:56:45', NULL, NULL),
+(91, 2, 2, '5000.00', '2025-01-23 12:56:47', NULL, NULL),
+(92, 121, 3, '20000.00', '2025-01-24 20:53:19', NULL, '2025-01-24 20:53:59'),
+(93, 121, 2, '5000.00', '2025-01-24 20:53:19', NULL, '2025-01-24 20:53:59'),
+(94, 122, 2, '5000.00', '2025-01-24 20:56:39', NULL, NULL),
+(95, 122, 4, '5000.00', '2025-01-24 20:56:39', NULL, NULL),
+(96, 123, 3, '20000.00', '2025-01-24 20:57:15', NULL, NULL),
+(97, 123, 2, '5000.00', '2025-01-24 20:57:15', NULL, NULL),
+(98, 124, 1, '20000.00', '2025-01-24 21:13:51', NULL, NULL),
+(99, 124, 3, '20000.00', '2025-01-24 21:13:51', NULL, NULL),
+(100, 125, 1, '20000.00', '2025-02-02 15:45:58', NULL, NULL),
+(101, 169, 3, '20000.00', '2025-02-04 00:20:30', NULL, NULL),
+(102, 169, 2, '5000.00', '2025-02-04 00:20:30', NULL, NULL),
+(103, 170, 16, '20000.00', '2025-02-04 00:24:19', NULL, NULL),
+(104, 170, 17, '25000.00', '2025-02-04 00:24:19', NULL, NULL),
+(105, 171, 16, '20000.00', '2025-02-04 00:29:05', NULL, '2025-02-04 00:38:11'),
+(106, 171, 17, '25000.00', '2025-02-04 00:29:05', NULL, '2025-02-04 00:38:11'),
+(107, 172, 17, '25000.00', '2025-02-04 00:37:45', NULL, NULL),
+(108, 172, 16, '20000.00', '2025-02-04 00:37:45', NULL, NULL),
+(109, 173, 32, '5000000.00', '2025-02-04 09:20:16', NULL, NULL),
+(110, 173, 17, '25000.00', '2025-02-04 09:20:16', NULL, NULL),
+(111, 173, 16, '20000.00', '2025-02-04 09:20:16', NULL, NULL),
+(112, 174, 2, '5000.00', '2025-02-10 14:44:59', NULL, NULL),
+(113, 174, 4, '5000.00', '2025-02-10 14:44:59', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1232,7 +1536,7 @@ CREATE TABLE `logo` (
   `nama_Logo` varchar(255) DEFAULT NULL,
   `logos` varchar(255) DEFAULT NULL,
   `icon` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `logo`
@@ -1250,7 +1554,7 @@ INSERT INTO `logo` (`id_logo`, `nama_Logo`, `logos`, `icon`) VALUES
 CREATE TABLE `meja` (
   `id_meja` int(11) NOT NULL,
   `No_meja` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `meja`
@@ -1275,22 +1579,25 @@ CREATE TABLE `membership` (
   `id_member` int(11) NOT NULL,
   `NoMember` varchar(255) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
-  `diskon` int(11) DEFAULT NULL,
+  `diskon` int(11) DEFAULT 10,
+  `Valid` date DEFAULT NULL,
+  `status` enum('1','2') DEFAULT '1',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `membership`
 --
 
-INSERT INTO `membership` (`id_member`, `NoMember`, `nama`, `diskon`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'G1137', 'Axo', 10, '2025-02-03 18:22:15', NULL, NULL),
-(2, 'G1237', 'B1', 10, '2025-02-03 18:22:42', NULL, NULL),
-(6, 'G1121', 'Adit', 10, '2025-02-03 18:47:31', NULL, NULL),
-(7, 'G1121', 'Julio', 10, '2025-02-03 19:01:13', NULL, NULL),
-(8, 'G123', 'Abdul', 10, '2025-02-03 21:07:52', NULL, NULL);
+INSERT INTO `membership` (`id_member`, `NoMember`, `nama`, `diskon`, `Valid`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'G1137', 'Axo', 10, '2025-03-04', '1', '2025-02-03 18:22:15', NULL, NULL),
+(2, 'G1237', 'B1', 10, '2025-03-04', '1', '2025-02-03 18:22:42', NULL, NULL),
+(6, 'G1121', 'Adit', 10, '2025-03-04', '1', '2025-02-03 18:47:31', NULL, NULL),
+(7, 'G1121', 'Julio', 10, '2025-03-04', '2', '2025-02-03 19:01:13', NULL, NULL),
+(8, 'G123', 'Abdul', 10, '2025-02-03', '2', '2025-02-03 21:07:52', NULL, NULL),
+(9, 'G654', 'Jay', 10, '2025-02-01', '2', '2025-02-04 13:10:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1309,25 +1616,26 @@ CREATE TABLE `menu` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `menu`
 --
 
 INSERT INTO `menu` (`id_menu`, `Kategory`, `foto`, `nama_menu`, `keterangan`, `harga_menu`, `Stok`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Food', 'nasi_uduk.png', 'Nasi Uduk', '-', 20000.00, 30, '2025-01-22 13:27:47', NULL, NULL),
-(2, 'Drink', 'Teh_obeng.png', 'The Obeng', '-', 5000.00, 50, '2025-01-22 13:28:34', NULL, NULL),
-(3, 'Food', 'nasi_goreng (1).png', 'nasi Goreng', '-', 20000.00, 10, '2025-01-22 13:29:16', NULL, NULL),
-(4, 'Drink', 'sprite.png', 'Jus Kiwi', '-', 5000.00, 20, '2025-01-22 13:29:27', NULL, NULL),
-(5, 'Drink', '1', '', '-', 0.00, 0, '2025-01-23 09:25:01', NULL, '2025-01-23 09:31:41'),
-(9, 'Food', '82k1aVUYS3bLnGWzfk1ds5xImiZHAH7KActpgJBE.png', '22', '-', 22.00, 22, '2025-01-23 09:50:52', NULL, '2025-01-23 09:51:01'),
-(12, 'Food', 'gacoan.png', 'Mie Gacoan1', '-', 15000.00, 100, '2025-01-23 10:04:25', NULL, NULL),
-(13, 'Drink', 'jHZR4C6fA4U2SdflTZBPykvYozDYaSH8lmDDBB2Z.png', '1', '-', 1.00, 1, '2025-01-24 21:09:22', NULL, '2025-01-24 21:09:26'),
-(14, 'Drink', 'cWjmSMeQA8CUZyCtTH9wSY5EjOQ08kr5NxEvWpV2.png', '11', '-', 5000.00, 1, '2025-01-24 21:10:08', NULL, '2025-01-24 21:10:18'),
-(16, 'Paket', 'combo_uduk.png', 'Paket Uduk Special', 'Nasih Uduk + Telor + Teh Obeng', 20000.00, 5, '2025-02-03 10:01:30', NULL, NULL),
-(17, 'Paket', 'ComboGacoa.png', 'Combo GACOAN', 'The Obeng + Mie Gacoan1', 25000.00, 343, '2025-02-03 13:27:27', NULL, NULL),
-(31, 'Paket', 'UqDEVYPborEEEPw7NGozGmV2RqPbecu1h8V6BwDo.png', '11', 'The Obeng + Jus Kiwi', 1.00, 1, '2025-02-04 00:34:50', NULL, '2025-02-04 00:35:04');
+(1, 'Food', 'nasi_uduk.png', 'Nasi Uduk', '-', '20000.00', 30, '2025-01-22 13:27:47', NULL, NULL),
+(2, 'Drink', 'Teh_obeng.png', 'The Obeng', '-', '5000.00', 50, '2025-01-22 13:28:34', NULL, NULL),
+(3, 'Food', 'nasi_goreng (1).png', 'nasi Goreng', '-', '20000.00', 10, '2025-01-22 13:29:16', NULL, NULL),
+(4, 'Drink', 'sprite.png', 'Jus Kiwi', '-', '5000.00', 20, '2025-01-22 13:29:27', NULL, NULL),
+(5, 'Drink', '1', '', '-', '0.00', 0, '2025-01-23 09:25:01', NULL, '2025-01-23 09:31:41'),
+(9, 'Food', '82k1aVUYS3bLnGWzfk1ds5xImiZHAH7KActpgJBE.png', '22', '-', '22.00', 22, '2025-01-23 09:50:52', NULL, '2025-01-23 09:51:01'),
+(12, 'Food', 'gacoan.png', 'Mie Gacoan1', '-', '15000.00', 100, '2025-01-23 10:04:25', NULL, NULL),
+(13, 'Drink', 'jHZR4C6fA4U2SdflTZBPykvYozDYaSH8lmDDBB2Z.png', '1', '-', '1.00', 1, '2025-01-24 21:09:22', NULL, '2025-01-24 21:09:26'),
+(14, 'Drink', 'cWjmSMeQA8CUZyCtTH9wSY5EjOQ08kr5NxEvWpV2.png', '11', '-', '5000.00', 1, '2025-01-24 21:10:08', NULL, '2025-01-24 21:10:18'),
+(16, 'Paket', 'combo_uduk.png', 'Paket Uduk Special', 'Nasih Uduk + Telor + Teh Obeng', '20000.00', 5, '2025-02-03 10:01:30', NULL, NULL),
+(17, 'Paket', 'ComboGacoa.png', 'Combo GACOAN', 'The Obeng + Mie Gacoan1', '25000.00', 343, '2025-02-03 13:27:27', NULL, NULL),
+(31, 'Paket', 'UqDEVYPborEEEPw7NGozGmV2RqPbecu1h8V6BwDo.png', '11', 'The Obeng + Jus Kiwi', '1.00', 1, '2025-02-04 00:34:50', NULL, '2025-02-04 00:35:04'),
+(32, 'Paket', 'Screenshot 2025-01-21 093001.png', 'Paket Jawir', 'Jus Kiwi + The Obeng + Mie Gacoan1 + nasi Goreng + Nasi Uduk + The Obeng + nasi Goreng + Mie Gacoan1 + nasi Goreng + Nasi Uduk + nasi Goreng + Mie Gacoan1 + nasi Goreng', '5000000.00', 111, '2025-02-04 09:18:35', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1337,7 +1645,8 @@ INSERT INTO `menu` (`id_menu`, `Kategory`, `foto`, `nama_menu`, `keterangan`, `h
 
 CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
-  `No_meja` varchar(225) NOT NULL,
+  `Nomor` varchar(225) NOT NULL,
+  `nama_pelanggan` varchar(255) DEFAULT NULL,
   `tanggal_transaksi` date NOT NULL,
   `total_harga` decimal(10,2) NOT NULL,
   `bayar` decimal(10,2) NOT NULL,
@@ -1346,25 +1655,27 @@ CREATE TABLE `transaksi` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `No_meja`, `tanggal_transaksi`, `total_harga`, `bayar`, `kembalian`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'G2', '2025-01-23', 200000.00, 200000.00, 0.00, 2, '2025-01-23 12:49:29', NULL, NULL),
-(2, 'G1', '2025-01-23', 200000.00, 0.00, 0.00, 2, '2025-01-23 12:49:29', NULL, NULL),
-(3, '3', '2025-01-23', 200000.00, 0.00, 0.00, 1, '2025-01-23 12:49:29', NULL, '2025-01-23 21:43:01'),
-(121, 'G0', '2025-01-24', 0.00, 111111.00, 111111.00, 1, '2025-01-24 20:53:19', NULL, '2025-01-24 20:53:59'),
-(122, 'G0', '2025-01-24', 11000.00, 200000.00, 189000.00, 2, '2025-01-24 20:56:39', NULL, NULL),
-(123, 'G0', '2025-01-24', 27500.00, 111111.00, 83611.00, 2, '2025-01-24 20:57:15', NULL, NULL),
-(124, 'E1', '2025-01-24', 44000.00, 200000.00, 156000.00, 2, '2025-01-24 21:13:51', NULL, NULL),
-(125, 'N1', '2025-02-02', 22000.00, 200000.00, 178000.00, 2, '2025-02-02 15:45:58', NULL, NULL),
-(169, 'N1', '2025-02-04', 27500.00, 111111.00, 83611.00, 1, '2025-02-04 00:20:30', NULL, NULL),
-(170, 'N1', '2025-02-04', 44550.00, 111111.00, 61611.00, 1, '2025-02-04 00:24:18', NULL, NULL),
-(171, 'N1', '2025-02-04', 44550.00, 111111.00, 66561.00, 1, '2025-02-04 00:29:05', NULL, '2025-02-04 00:38:11'),
-(172, 'N1', '2025-02-04', 44550.00, 111111.00, 66561.00, 2, '2025-02-04 00:37:45', NULL, NULL);
+INSERT INTO `transaksi` (`id_transaksi`, `Nomor`, `nama_pelanggan`, `tanggal_transaksi`, `total_harga`, `bayar`, `kembalian`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'G21', 'Axo', '2025-01-23', '200000.00', '200000.00', '0.00', 2, '2025-01-23 12:49:29', NULL, NULL),
+(2, 'G22', 'Axo', '2025-01-23', '200000.00', '0.00', '0.00', 2, '2025-01-23 12:49:29', NULL, NULL),
+(3, 'G23', 'Axo', '2025-01-23', '200000.00', '0.00', '0.00', 1, '2025-01-23 12:49:29', NULL, '2025-01-23 21:43:01'),
+(121, 'G24', 'Axo', '2025-01-24', '0.00', '111111.00', '111111.00', 1, '2025-01-24 20:53:19', NULL, '2025-01-24 20:53:59'),
+(122, 'G25', 'Axo', '2025-01-24', '11000.00', '200000.00', '189000.00', 2, '2025-01-24 20:56:39', NULL, NULL),
+(123, 'G26', 'Axo', '2025-01-24', '27500.00', '111111.00', '83611.00', 2, '2025-01-24 20:57:15', NULL, NULL),
+(124, 'G27', 'Axo', '2025-01-24', '44000.00', '200000.00', '156000.00', 2, '2025-01-24 21:13:51', NULL, NULL),
+(125, 'G28', 'Axo', '2025-02-02', '22000.00', '200000.00', '178000.00', 2, '2025-02-02 15:45:58', NULL, NULL),
+(169, 'G29', 'Axo', '2025-02-04', '27500.00', '111111.00', '83611.00', 2, '2025-02-04 00:20:30', NULL, NULL),
+(170, 'G30', 'Axo', '2025-02-04', '44550.00', '111111.00', '61611.00', 2, '2025-02-04 00:24:18', NULL, NULL),
+(171, 'G31', 'Axo', '2025-02-04', '44550.00', '111111.00', '66561.00', 1, '2025-02-04 00:29:05', NULL, '2025-02-04 00:38:11'),
+(172, 'G32', 'Axo', '2025-02-04', '44550.00', '111111.00', '66561.00', 2, '2025-02-04 00:37:45', NULL, NULL),
+(173, 'G33', 'Axo', '2025-02-04', '2996730.00', '3000000.00', '3270.00', 2, '2025-02-04 09:20:16', NULL, NULL),
+(174, 'G34', 'Axo', '2025-02-10', '8910.00', '10000.00', '1090.00', 1, '2025-02-10 14:44:59', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1378,7 +1689,7 @@ CREATE TABLE `user` (
   `user` varchar(255) DEFAULT NULL,
   `password` varchar(11) DEFAULT NULL,
   `Level` enum('admin','petugas') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
@@ -1400,21 +1711,24 @@ CREATE TABLE `voucher` (
   `Nama_Voucher` varchar(255) DEFAULT NULL,
   `Diskon` varchar(255) DEFAULT NULL,
   `Valid` date DEFAULT NULL,
+  `status` enum('1','2') DEFAULT '1',
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `voucher`
 --
 
-INSERT INTO `voucher` (`id_Voucher`, `No_Voucher`, `Nama_Voucher`, `Diskon`, `Valid`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'G357', 'UlangTahunMu', '100', '2025-02-04', '2025-02-03 20:43:32', NULL, NULL),
-(2, 'G232', 'Diskon 10%', '10', '2025-02-12', '2025-02-03 20:49:36', NULL, NULL),
-(3, 'G222', 'Diskon 20%', '20', '2025-02-17', '2025-02-03 20:58:04', NULL, NULL),
-(4, 'G125', 'Diskon 10%', '10', '2025-02-04', '2025-02-03 21:16:56', NULL, NULL),
-(5, 'G123', 'diskon 40%', '40', '2025-02-05', '2025-02-04 00:36:14', NULL, NULL);
+INSERT INTO `voucher` (`id_Voucher`, `No_Voucher`, `Nama_Voucher`, `Diskon`, `Valid`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'G357', 'UlangTahunMu', '100', '2025-02-05', '2', '2025-02-03 20:43:32', NULL, NULL),
+(2, 'G232', 'Diskon 10%', '10', '2025-02-03', '2', '2025-02-03 20:49:36', NULL, NULL),
+(3, 'G222', 'Diskon 20%', '20', '2025-02-03', '2', '2025-02-03 20:58:04', NULL, NULL),
+(4, 'G125', 'Diskon 10%', '10', '2025-02-04', '2', '2025-02-03 21:16:56', NULL, NULL),
+(5, 'G123', 'diskon 40%', '40', '2025-02-05', '2', '2025-02-04 00:36:14', NULL, NULL),
+(6, 'G124', 'diskon 40%', '40', '2025-02-03', '2', '2025-02-04 12:51:25', NULL, NULL),
+(7, 'G6541', 'Jay', '10', '2025-02-12', '1', '2025-02-06 09:21:20', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -1482,13 +1796,13 @@ ALTER TABLE `voucher`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2054;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2353;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `logo`
@@ -1506,19 +1820,19 @@ ALTER TABLE `meja`
 -- AUTO_INCREMENT for table `membership`
 --
 ALTER TABLE `membership`
-  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -1530,7 +1844,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `voucher`
 --
 ALTER TABLE `voucher`
-  MODIFY `id_Voucher` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_Voucher` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
