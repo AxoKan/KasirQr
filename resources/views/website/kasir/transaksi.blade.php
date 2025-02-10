@@ -12,12 +12,17 @@
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="filter-container"></div>
               </div>
-
+              <div class="filter-container d-flex align-items-center gap-2">
+        <a href="{{ url('Laporan') }}">
+          <button class="btn btn-success">Laporan</button>
+        </a>
+      </div>
               <table class="table datatable" id="mitraTable">
   <thead>
     <tr style="font-weight: bold; color: black; font-size: larger;">
       <td align="center" scope="col">No</td>
       <td align="center" scope="col">Nomor</td>
+      <td align="center" scope="col">nama pelanggan</td>
       <td align="center" scope="col">Tanggal</td>
       <td align="center" scope="col">Total harga</td>
       <td align="center" scope="col">Pesanan</td>
@@ -30,7 +35,8 @@
       @if ($user->deleted_at === null)
         <tr class="table-row" data-id-transaksi="{{ $user->id_transaksi }}" data-status="{{ $user->status }}">
           <td class="text-center">{{ $index + 1 }}</td>
-          <td class="text-center">{{ $user->No_meja }}</td>
+          <td class="text-center">{{ $user->Nomor }}</td>
+          <td class="text-center">{{ $user->nama_pelanggan }}</td>
           <td class="text-center">{{ $user->tanggal_transaksi }}</td>
           <td class="text-center">{{ $user->total_harga }}</td>
           <td class="text-center">

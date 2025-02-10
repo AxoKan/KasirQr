@@ -124,5 +124,12 @@ public function getMenuCount()
             ->where('created_at', '<', $besok)
             ->count();
     }
+    public function cari($table, $awal, $akhir)
+{
+    return DB::table($table)
+        ->whereBetween('tanggal_transaksi', [$awal, $akhir])
+        ->get();
+}
+
 }
 

@@ -57,3 +57,8 @@ Route::post('/aksi_add_Voucher', [Website::class, 'aksi_add_Voucher']);
 Route::get('/EditVoucher/{id}', [Website::class, 'EditVoucher'])->name('EditVoucher');
 Route::post('/aksi_EditVoucher', [Website::class, 'aksi_EditVoucher']);
 Route::get('/VoucherPaper/{id}', [Website::class, 'VoucherPaper'])->name('VoucherPaper');
+Route::get('/StopVoucher/{id}', [Website::class, 'StopVoucher'])->name('StopVoucher');
+Route::get('/StopMember/{id}', [Website::class, 'StopMember'])->name('StopMember');
+Route::get('/Laporan', [Website::class, 'Laporan'])->name('Laporan');
+Route::post('/print', [Website::class, 'print'])->name('print');
+Route::post('pdf1', [Website::class, 'pdf1'])->name('pdf1');

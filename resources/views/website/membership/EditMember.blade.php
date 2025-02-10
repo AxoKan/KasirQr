@@ -42,6 +42,7 @@
                         <label for="studentName">Nama Member</label>
                         <input type="text" name="nama" class="form-control" value="{{ $member->nama }}" required>
                     </div>
+                    
                     <input type="hidden" name="id" value="{{ $member->id_member }}">
                     <button type="submit" class="btn btn-primary">Add Member</button>
                 </form>

@@ -21,7 +21,7 @@
             <p>Indonesia</p>
         </div>
 
-        <div class="text-center"><p class="font-bold">Dine in / Table {{ $sa->No_meja }}</p></div>
+        <div class="text-center"><p class="font-bold">Dine in / Table {{ $sa->Nomor }}</p></div>
 
         <hr class="border-dashed"/>
 

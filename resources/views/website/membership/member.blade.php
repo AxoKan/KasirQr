@@ -37,6 +37,8 @@
                     <td align="center" scope="col">No</td>
                     <td align="center" scope="col">No Member</td>
                     <td align="center" scope="col">Nama Member</td>
+                    <td align="center" scope="col">Valid Until</td>
+                    <td align="center" scope="col">Status</td>
                     <td align="center" scope="col">action</td>
                   </tr>
                 </thead>
@@ -47,14 +49,44 @@
                     <td align="center">{{ $index + 1 }}</td>
                     <td align="center">{{ $user->NoMember }}</td>
                     <td align="center">{{ $user->nama }}</td>
-                    <td align="center">
-                    <div style="display: flex; gap: 10px; justify-content: center;">
-                    <div style="display: flex; gap: 10px; justify-content: center;">
-                    <a href="{{ url('KartuMember/' . $user->id_member) }}" class="btn btn-success" target="_blank" rel="noopener noreferrer">Kartu</a>
-                        <a href="{{ url('deleteMember/' . $user->id_member) }}" class="btn btn-danger" 
-                            onclick="return confirm('Are you sure you want to delete this Voucher?');">Delete</a>
-                        <a href="{{ url('EditMember/' . $user->id_member) }}" class="btn btn-warning">Edit</a>
-                    </div>
+                    <td align="center">{{ $user->Valid }}</td>
+                    <td>
+            @if ($user->status == 1)
+              <span class="badge rounded-pill bg-success">Valid</span>
+            @elseif ($user->status == 2)
+              <span class="badge rounded-pill bg-danger">Invalid</span>
+            @endif
+          </td>
+          <td align="center">
+                      <a class="btn btn-success" class="nav-link d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">Tindakan</span>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                          <h6>
+                          @if ($user->status == 1)
+                            <a href="{{ url('KartuMember/' . $user->id_member) }}" target="_blank" rel="noopener noreferrer">
+                              <i class="btn btn-success">Kartu</i>
+                            </a>
+                            @endif
+                            <a href="{{ url('deleteMember/' . $user->id_member) }}" onclick="return confirm('Are you sure you want to delete this member?');">
+                              <i class="btn btn-danger">Delete</i>
+                            </a>
+                            @if ($user->status == 1)
+                            <a href="{{ url('StopMember/' . $user->id_member) }}" onclick="return confirm('Are you sure you want to Cancel this Voucher?');">
+                              <i class="btn btn-danger">Stop</i>
+                            </a>
+                            
+                            <a href="{{ url('EditMember/' . $user->id_member) }}">
+                              <i class="btn btn-warning">Edit</i>
+                            </a>
+                            @endif
+                          </h6>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                      </ul>
                     </td>
                   </tr>
                   @endif
@@ -74,6 +106,17 @@
     </script>
   </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.getElementById('search').addEventListener('input', function () {
+  const filter = this.value.toLowerCase();
+  const rows = document.querySelectorAll('#mitraTable tbody tr');
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(filter) ? '' : 'none';
+  });
+});
 
+    </script>
 </body>
 </html>

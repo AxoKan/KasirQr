@@ -73,8 +73,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="control-label">Meja :</label>
-                  <input type="text" class="form-control" readonly="readonly" name="meja" value="{{ $meja->No_meja }}">
+                  <label class="control-label">Nama :</label>
+                  <input type="text" class="form-control"  name="meja">
                 </div>
               </div>
 
@@ -220,8 +220,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-   document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const members = @json($member->pluck('NoMember'));
+    const memberNames = @json($member->pluck('nama', 'NoMember'));
 
     // Hapus used_membership dari localStorage saat halaman dimuat ulang
     localStorage.removeItem('used_membership');
@@ -229,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('cek_membership').addEventListener('click', function () {
         const membershipInput = document.getElementById('membership_input').value.trim();
         const totalHargaInput = document.getElementById('total_harga_input');
+        const mejaInput = document.getElementsByName('meja')[0]; // Ambil input nama/meja
         let totalHarga = parseFloat(totalHargaInput.value) || 0;
 
         console.log("Members:", members);
@@ -245,6 +247,9 @@ document.addEventListener('DOMContentLoaded', function () {
             totalHarga *= 0.9; // Diskon 10%
             totalHargaInput.value = totalHarga.toFixed(0);
 
+            // Masukkan nama dari membership ke input meja
+            mejaInput.value = memberNames[membershipInput] || "Tidak Diketahui";
+
             // Tandai bahwa membership sudah digunakan
             localStorage.setItem('used_membership', membershipInput);
 
@@ -258,47 +263,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  document.addEventListener('DOMContentLoaded', function () {
-        const vouchers = @json($Voucher->pluck('Diskon', 'No_Voucher'));
-        const voucherValidity = @json($Voucher->pluck('valid', 'No_Voucher'));
 
-        document.getElementById('cek_voucher').addEventListener('click', function() {
-            const voucherInput = document.getElementById('voucher_input').value.trim();
-            const totalHargaInput = document.getElementById('total_harga_input');
-            let totalHarga = parseFloat(totalHargaInput.value) || 0;
+document.addEventListener('DOMContentLoaded', function () {
+  const vouchers = @json($Voucher->pluck('Diskon', 'No_Voucher'));
+  const voucherStatuses = @json($Voucher->pluck('status', 'No_Voucher'));
+  let voucherUsed = false; // Status penggunaan voucher
 
-            console.log("Vouchers:", vouchers);
-            console.log("Voucher Input:", voucherInput);
+  document.getElementById('cek_voucher').addEventListener('click', function () {
+    if (voucherUsed) {
+      alert("Voucher sudah digunakan untuk transaksi ini!");
+      return;
+    }
 
-            // Cek apakah voucher sudah pernah digunakan
-            if (localStorage.getItem(`used_voucher_${voucherInput}`)) {
-                alert("Voucher sudah pernah digunakan!");
-                return;
-            }
+    const voucherInput = document.getElementById('voucher_input').value.trim();
+    const totalHargaInput = document.getElementById('total_harga_input');
+    let totalHarga = parseFloat(totalHargaInput.value) || 0;
 
-            // Cek apakah voucher valid berdasarkan kolom "valid"
-            if (voucherValidity[voucherInput] == 0) { // 0 berarti tidak valid
-                alert("Voucher tidak valid!");
-                return;
-            }
+    if (!voucherInput) {
+      alert("Masukkan kode voucher!");
+      return;
+    }
 
-            // Cek apakah voucher ada di daftar
-            if (vouchers[voucherInput]) {
-                const diskon = parseFloat(vouchers[voucherInput]);
-                console.log("Diskon:", diskon);
+    // Cek apakah voucher ada dan valid
+    if (!(voucherInput in vouchers)) {
+      alert("Voucher tidak valid!");
+      return;
+    }
 
-                totalHarga -= (diskon / 100) * totalHarga;
-                totalHargaInput.value = totalHarga.toFixed(0);
-                
-                // Simpan bahwa voucher sudah digunakan
-                localStorage.setItem(`used_voucher_${voucherInput}`, true);
+    // Cek status voucher (contoh status: 0 untuk aktif, 2 untuk kedaluwarsa/tidak berlaku)
+    const voucherStatus = parseInt(voucherStatuses[voucherInput], 10);
+    if (voucherStatus === 2) {
+      alert("Voucher telah kedaluwarsa atau tidak dapat digunakan!");
+      return;
+    }
 
-                alert("Voucher berhasil diterapkan! Diskon " + diskon + "%");
-            } else {
-                alert("Voucher tidak valid!");
-            }
-        });
-    });
+    // Diskon berlaku jika voucher ada dan valid
+    const diskon = parseFloat(vouchers[voucherInput]);
+    totalHarga -= (diskon / 100) * totalHarga;
+    totalHargaInput.value = totalHarga.toFixed(0);
+
+    voucherUsed = true; // Tandai bahwa voucher telah digunakan
+    alert("Voucher berhasil diterapkan! Diskon " + diskon + "%");
+  });
+
+  document.getElementById('kasirForm').addEventListener('submit', function (event) {
+    if (voucherUsed) {
+      // Setelah submit, voucher dianggap terkunci
+      alert("Transaksi berhasil!");
+    }
+  });
+});
+
+
 
 
 

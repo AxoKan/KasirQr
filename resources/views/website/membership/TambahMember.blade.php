@@ -42,7 +42,17 @@
                         <label for="studentName">Nama Member</label>
                         <input type="text" name="nama" class="form-control" placeholder="Enter Nama Pelanggan" required>
                     </div>
+                    <div class="form-group">
+                    <label for="studentName">Time</label>
+            <select name="time" class="form-control" id="kategory">
+              <option value="">Pilih</option>
+              <option value="1">1 Month</option>
+              <option value="2">5 Month</option>
+              <option value="3">1 Year</option>
+            </select>
+          </div>
 
+  
                     <button type="submit" class="btn btn-primary">Add Member</button>
                 </form>
 

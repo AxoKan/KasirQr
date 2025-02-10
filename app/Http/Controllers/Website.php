@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class Website extends Controller
 {
@@ -573,16 +574,28 @@ public function aksi_kasir(Request $request)
     $menuItems = $request->input('menu_items'); // 'menu_items' should be an array of menu data
 
     // Insert data into the `transaksi` table
-    $transaksiData = [
-        'No_meja' => $meja,
-        'tanggal_transaksi' => date('Y-m-d'),
-        'total_harga' => $total,
-        'bayar' => $bayar,
-        'kembalian' => $kembalian,
-        'status' => '1',
-        'created_at' => date('Y-m-d H:i:s'),
-    ];
+    // Ambil nomor terakhir dari transaksi
+$lastTransaction = DB::table('transaksi')
+->orderBy('Nomor', 'desc')
+->first();
 
+if ($lastTransaction && preg_match('/G(\d+)/', $lastTransaction->Nomor, $matches)) {
+$newNumber = 'G' . ($matches[1] + 1);
+} else {
+$newNumber = 'G34'; // Jika tidak ada transaksi sebelumnya, mulai dari G34
+}
+
+// Buat data transaksi baru
+$transaksiData = [
+'Nomor' => $newNumber,
+'nama_pelanggan' => $meja,
+'tanggal_transaksi' => date('Y-m-d'),
+'total_harga' => $total,
+'bayar' => $bayar,
+'kembalian' => $kembalian,
+'status' => '1',
+'created_at' => date('Y-m-d H:i:s'),
+];
     // Insert the transaction and get the ID of the inserted row
     $transaksiId = $model->tambah1('transaksi', $transaksiData);
     print_r($transaksiId);
@@ -678,13 +691,21 @@ public function member ()
                'description' => 'User viewed Member Data.',
                'timestamp' => $timestamp,
            ]);
+           
        }catch (\Exception $e) {
                // Log the error if activity logging fails
                logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
            }
-    $data1['sa'] = $model->tampil('membership',
-    'id_member');
-
+           $data1['sa'] = $model->tampil('membership', 'id_member');   
+           foreach ($data1['sa'] as $voucher) {
+               if (isset($voucher->Valid) && strtotime($voucher->Valid) < time() && $voucher->status !== '2') {
+                   // Update the status to '2' if the voucher has expired
+                   $where = ['id_member' => $voucher->id_member];
+                   $isi = ['status' => '2'];
+                   $model->edit('membership', $where, $isi);
+               }
+           }
+           
 
     echo view ('esensial/header', $data);
     echo view ('esensial/menu', $data);
@@ -763,11 +784,31 @@ public function aksi_add_member(Request $request)
     $user_id = session()->get('id_user');
     $e = $request->input('Nomor');
     $b = $request->input('nama');
+    $c = $request->input('time'); // Input value for the time
+    $currentDate = Carbon::now(); // Get the current date
+    
+    // Calculate the Valid date based on the input time
+    switch ($c) {
+        case 1:
+            $validDate = $currentDate->addMonth(); // Add 1 month
+            break;
+        case 2:
+            $validDate = $currentDate->addMonths(5); // Add 5 months
+            break;
+        case 3:
+            $validDate = $currentDate->addYear(); // Add 1 year
+            break;
+        default:
+            $validDate = $currentDate; // Default to current date if no valid input
+            break;
+    }
+    
     $isi = array(
-            'NoMember' => $e,
-            'nama' => $b,
-            'diskon' => '10'
-     );
+        'NoMember' => $e,
+        'nama' => $b,
+        'Valid' => $validDate->toDateString(), // Format the date to a string (YYYY-MM-DD)
+        'diskon' => '10'
+    );
      try {
         $timestamp = now(); // Use Laravel's now() function for current time
         DB::table('activity_log')->insert([
@@ -893,46 +934,60 @@ public function KartuMember ($id)
     return redirect()->to('http://localhost:8080/home/error_404');
 }
 }
-public function Voucher ()
-{$userLevel = session()->get('Level');
-    $allowedLevels = ['petugas','admin'];
+public function Voucher()
+{
+    $userLevel = session()->get('Level');
+    $allowedLevels = ['petugas', 'admin'];
 
     if (in_array($userLevel, $allowedLevels)) {
-    $user_id = session()->get('id_user');
-    $model = new M_lelang();
+        $user_id = session()->get('id_user');
+        $model = new M_lelang();
 
-       // Fetch all logo data
-       $logoData = $model->tampil('logo'); // Fetch all logos
-       $filteredLogo = $logoData->filter(function ($item) {
-           return $item->id_logo == 1; // Adjust this condition as needed
-       });
-       $data['satu'] = $filteredLogo->first();
-       $logs = $model->getActivityLogs();
-       $data['users'] = $model->tampil('user', 'id_user');
-       try {
-           $timestamp = now(); // Use Laravel's now() function for current time
-           DB::table('activity_log')->insert([
-               'user_id' => $user_id,
-               'activity' => 'View',
-               'description' => 'User viewed Voucher Data.',
-               'timestamp' => $timestamp,
-           ]);
-       }catch (\Exception $e) {
-               // Log the error if activity logging fails
-               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
-           }
-    $data1['sa'] = $model->tampil('Voucher',
-    'id_Voucher');
+        // Fetch all logo data
+        $logoData = $model->tampil('logo'); // Fetch all logos
+        $filteredLogo = $logoData->filter(function ($item) {
+            return $item->id_logo == 1; // Adjust this condition as needed
+        });
+        $data['satu'] = $filteredLogo->first();
+        $logs = $model->getActivityLogs();
+        $data['users'] = $model->tampil('user', 'id_user');
 
+        try {
+            $timestamp = now(); // Use Laravel's now() function for current time
+            DB::table('activity_log')->insert([
+                'user_id' => $user_id,
+                'activity' => 'View',
+                'description' => 'User viewed Voucher Data.',
+                'timestamp' => $timestamp,
+            ]);
+        } catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
 
-    echo view ('esensial/header', $data);
-    echo view ('esensial/menu', $data);
-    echo view('website/Voucher/Voucher',$data1);
-    echo view ('esensial/footer');
-} else {
-    return redirect()->to('http://localhost:8080/home/error_404');
+        // Fetch vouchers data
+        $data1['sa'] = $model->tampil('Voucher', 'id_Voucher');
+
+        // Check if any voucher has expired and update its status to '2'
+        foreach ($data1['sa'] as $voucher) {
+            if (strtotime($voucher->Valid) < time() && $voucher->status != 2) {
+                // Update the status to '2' if the voucher has expired
+                $where = ['id_Voucher' => $voucher->id_Voucher];
+                $isi = ['status' => '2'];
+                $model->edit('voucher', $where, $isi);
+            }
+        }
+
+        // Render the views
+        echo view('esensial/header', $data);
+        echo view('esensial/menu', $data);
+        echo view('website/Voucher/Voucher', $data1);
+        echo view('esensial/footer');
+    } else {
+        return redirect()->to('http://localhost:8080/home/error_404');
+    }
 }
-}
+
 public function deleteVoucher($id)
 {
     $model = new M_lelang();
@@ -1120,7 +1175,7 @@ public function VoucherPaper ($id)
            DB::table('activity_log')->insert([
                'user_id' => $user_id,
                'activity' => 'View',
-               'description' => 'User viewed Member.',
+               'description' => 'User viewed voucher.',
                'timestamp' => $timestamp,
            ]);
        }catch (\Exception $e) {
@@ -1139,10 +1194,200 @@ public function VoucherPaper ($id)
     return redirect()->to('http://localhost:8080/home/error_404');
 }
 }
+public function StopVoucher($id)
+{
+    $model = new M_lelang();
+    $user_id = session()->get('id_user');
+    $where = ['id_Voucher' => $id];
+    $isi = array(
+            'status' => '2'
+        
+     );
+     try {
+        $timestamp = now(); // Use Laravel's now() function for current time
+        DB::table('activity_log')->insert([
+            'user_id' => $user_id,
+            'activity' => 'Deleted',
+            'description' => 'User Stop Voucher Data.',
+            'timestamp' => $timestamp,
+        ]);
+    }catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+    $model->edit('voucher', $where ,$isi);
+
+    return redirect()->to('Voucher');
+}
+public function StopMember($id)
+{
+    $model = new M_lelang();
+    $user_id = session()->get('id_user');
+    $where = ['id_member' => $id];
+    $isi = array(
+            'status' => '2'
+        
+     );
+     try {
+        $timestamp = now(); // Use Laravel's now() function for current time
+        DB::table('activity_log')->insert([
+            'user_id' => $user_id,
+            'activity' => 'Deleted',
+            'description' => 'User Stop Voucher Data.',
+            'timestamp' => $timestamp,
+        ]);
+    }catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+    $model->edit('membership', $where ,$isi);
+
+    return redirect()->to('member');
 }
 
-    
-    
+public function Laporan()
+{
+    $userLevel = session()->get('Level');
+    $allowedLevels = ['petugas', 'admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+        $user_id = session()->get('id_user');
+        $model = new M_lelang();
+
+        // Fetch all logo data
+        $logoData = $model->tampil('logo'); // Fetch all logos
+        $filteredLogo = $logoData->filter(function ($item) {
+            return $item->id_logo == 1; // Adjust this condition as needed
+        });
+        $data['satu'] = $filteredLogo->first();
+        $logs = $model->getActivityLogs();
+        $data['users'] = $model->tampil('user', 'id_user');
+
+        try {
+            $timestamp = now(); // Use Laravel's now() function for current time
+            DB::table('activity_log')->insert([
+                'user_id' => $user_id,
+                'activity' => 'View',
+                'description' => 'User viewed Voucher Data.',
+                'timestamp' => $timestamp,
+            ]);
+        } catch (\Exception $e) {
+            // Log the error if activity logging fails
+            logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+        }
+
+        // Fetch vouchers data
+        $data1['sa'] = $model->tampil('Voucher', 'id_Voucher');
+
+        // Check if any voucher has expired and update its status to '2'
+        foreach ($data1['sa'] as $voucher) {
+            if (strtotime($voucher->Valid) < time() && $voucher->status != 2) {
+                // Update the status to '2' if the voucher has expired
+                $where = ['id_Voucher' => $voucher->id_Voucher];
+                $isi = ['status' => '2'];
+                $model->edit('voucher', $where, $isi);
+            }
+        }
+
+        // Render the views
+        echo view('esensial/header', $data);
+        echo view('esensial/menu', $data);
+        echo view('website/laporan/laporan', $data1);
+        echo view('esensial/footer');
+    } else {
+        return redirect()->to('http://localhost:8080/home/error_404');
+    }
+}
+public function print ()
+{$userLevel = session()->get('Level');
+    $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+    $user_id = session()->get('id_user');
+    $model = new M_lelang();
+
+       // Fetch all logo data
+       $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Menu Data.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+           $e = request()->input('MONTH');
+$b = request()->input('YEAR');
+
+           
+        $data1['sa'] = $model->Cari('transaksi',$e,$b);
+
+
+
+    echo view ('esensial/header', $data);
+
+    echo view('website/laporan/print',$data1);
+    echo view ('esensial/footer');
+} else {
+    return redirect()->to('http://localhost:8080/home/error_404');
+}
+}
+
+public function pdf1 ()
+{$userLevel = session()->get('Level');
+    $allowedLevels = ['petugas','admin'];
+
+    if (in_array($userLevel, $allowedLevels)) {
+    $user_id = session()->get('id_user');
+    $model = new M_lelang();
+
+       // Fetch all logo data
+       $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Menu Data.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+           $e = request()->input('MONTH');
+$b = request()->input('YEAR');
+
+           
+        $data1['sa'] = $model->Cari('transaksi',$e,$b);
+
+
+
+    echo view ('esensial/header', $data);
+
+    echo view('website/laporan/pdf',$data1);
+    echo view ('esensial/footer');
+} else {
+    return redirect()->to('http://localhost:8080/home/error_404');
+}
+}
+}
 
     // Redirect or display transaction and details for debugging
    
